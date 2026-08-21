@@ -1,0 +1,75 @@
+<app-page-header title="Quản lý Sản phẩm" subtitle="Danh sách sản phẩm trong kho">
+    <a routerLink="/products/new" class="btn btn--primary">+ Thêm sản phẩm</a>
+</app-page-header>
+
+<div class="filters-bar">
+    <input class="filter-input" placeholder="Tìm theo tên hoặc mã..." [ngModel]="searchKeyword()"
+        (ngModelChange)="searchKeyword.set($event)" />
+    <select class="filter-select" [ngModel]="filterCategory()" (ngModelChange)="filterCategory.set($event)">
+        <option [ngValue]="null">Tất cả danh mục</option>
+        @for (cat of categories(); track cat.id) { <option [ngValue]="cat.id">{{ cat.tenDanhMuc }}</option> }
+    </select>
+    <select class="filter-select" [ngModel]="filterStatus()" (ngModelChange)="filterStatus.set($event)">
+        <option [ngValue]="null">Tất cả trạng thái</option>
+        <option [ngValue]="TrangThai.DANG_KINH_DOANH">Đang kinh doanh</option>
+        <option [ngValue]="TrangThai.NGUNG_KINH_DOANH">Ngừng kinh doanh</option>
+    </select>
+    <select class="filter-select" [ngModel]="sortField()" (ngModelChange)="sortField.set($event)">
+        <option value="tenSanPham">Theo tên</option>
+        <option value="soLuongTon">Theo tồn kho</option>
+    </select>
+    <button class="btn-sort" (click)="toggleSortDirection()">{{ sortDirection() === 'asc' ? '↑' : '↓' }}</button>
+</div>
+
+@if (filteredProducts().length > 0) {
+<div class="card">
+    <div class="table-container">
+        <table class="data-table">
+            <thead>
+                <tr>
+                    <th>Mã SP</th>
+                    <th>Tên sản phẩm</th>
+                    <th>Danh mục</th>
+                    <th>ĐVT</th>
+                    <th>Giá nhập</th>
+                    <th>Giá bán</th>
+                    <th>Tồn kho</th>
+                    <th>Trạng thái</th>
+                    <th>Thao tác</th>
+                </tr>
+            </thead>
+            <tbody>
+                @for (p of filteredProducts(); track p.id) {
+                <tr [class.row--warning]="p.soLuongTon <= p.tonToiThieu">
+                    <td><span class="code-badge">{{ p.maSanPham }}</span></td>
+                    <td class="td--bold">{{ p.tenSanPham }}</td>
+                    <td class="td--muted">{{ getCategoryName(p.idDanhMuc) }}</td>
+                    <td>{{ p.donViTinh }}</td>
+                    <td>{{ p.giaNhap | currency:'VND':'symbol':'1.0-0' }}</td>
+                    <td>{{ p.giaBan | currency:'VND':'symbol':'1.0-0' }}</td>
+                    <td><span class="stock-badge" [class.stock-badge--danger]="p.soLuongTon <= p.tonToiThieu">{{
+                            p.soLuongTon }}</span></td>
+                    <td><span class="status-badge"
+                            [class.status-badge--active]="p.trangThai === TrangThai.DANG_KINH_DOANH"
+                            [class.status-badge--inactive]="p.trangThai === TrangThai.NGUNG_KINH_DOANH">{{ p.trangThai
+                            }}</span></td>
+                    <td>
+                        <div class="action-btns">
+                            <a [routerLink]="['/products', p.id, 'edit']" class="btn-icon btn-icon--edit"
+                                title="Sửa">✎</a>
+                            <button class="btn-icon btn-icon--delete" title="Xóa" (click)="confirmDelete(p)">✕</button>
+                        </div>
+                    </td>
+                </tr>
+                }
+            </tbody>
+        </table>
+    </div>
+</div>
+} @else {
+<div class="card"><app-empty-state message="Không tìm thấy sản phẩm nào" /></div>
+}
+
+<app-confirm-dialog [visible]="showDeleteDialog()" title="Xóa sản phẩm"
+    [message]="'Bạn có chắc muốn xóa \'' + (selectedProduct()?.tenSanPham ?? '') + '\'?'"
+    (confirmed)="onDeleteConfirmed()" (cancelled)="showDeleteDialog.set(false)" />
