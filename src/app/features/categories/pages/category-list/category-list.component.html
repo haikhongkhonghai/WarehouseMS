@@ -1,0 +1,78 @@
+<app-page-header title="Quản lý Danh mục" subtitle="Danh sách các danh mục sản phẩm">
+  <a routerLink="/categories/new" class="btn btn--primary">
+    <svg
+      width="16"
+      height="16"
+      viewBox="0 0 24 24"
+      fill="none"
+      stroke="currentColor"
+      stroke-width="2"
+    >
+      <line x1="12" y1="5" x2="12" y2="19" />
+      <line x1="5" y1="12" x2="19" y2="12" />
+    </svg>
+    Thêm danh mục
+  </a>
+</app-page-header>
+
+@if (categories().length > 0) {
+  <div class="card">
+    <div class="table-container">
+      <table class="data-table">
+        <thead>
+          <tr>
+            <th>Mã danh mục</th>
+            <th>Tên danh mục</th>
+            <th>Mô tả</th>
+            <th>Số sản phẩm</th>
+            <th>Thao tác</th>
+          </tr>
+        </thead>
+        <tbody>
+          @for (category of categories(); track category.id) {
+            <tr>
+              <td>
+                <span class="code-badge">{{ category.maDanhMuc }}</span>
+              </td>
+              <td class="td--bold">{{ category.tenDanhMuc }}</td>
+              <td class="td--muted">{{ category.moTa || '—' }}</td>
+              <td>{{ getProductCount(category.id) }}</td>
+              <td>
+                <div class="action-btns">
+                  <a
+                    [routerLink]="['/categories', category.id, 'edit']"
+                    class="btn-icon btn-icon--edit"
+                    title="Sửa"
+                  >
+                    ✏️
+                  </a>
+                  <button
+                    class="btn-icon btn-icon--delete"
+                    (click)="confirmDelete(category)"
+                    title="Xóa"
+                  >
+                    🗑️
+                  </button>
+                </div>
+              </td>
+            </tr>
+          }
+        </tbody>
+      </table>
+    </div>
+  </div>
+} @else {
+  <div class="card">
+    <app-empty-state message="Chưa có danh mục nào. Hãy bấm 'Thêm danh mục' để bắt đầu." />
+  </div>
+}
+
+<app-confirm-dialog
+  [visible]="showDeleteDialog()"
+  title="Xóa danh mục"
+  [message]="
+    'Bạn có chắc chắn muốn xóa danh mục \'' + (selectedCategory()?.tenDanhMuc ?? '') + '\'?'
+  "
+  (confirmed)="onDeleteConfirmed()"
+  (cancelled)="showDeleteDialog.set(false)"
+/>

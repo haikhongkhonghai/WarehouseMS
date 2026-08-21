@@ -1,0 +1,101 @@
+.card {
+  background: #ffffff;
+  border: 1px solid #e2e8f0;
+  overflow: hidden;
+}
+.table-container {
+  overflow-x: auto;
+}
+.data-table {
+  width: 100%;
+  border-collapse: collapse;
+}
+.data-table th {
+  text-align: left;
+  padding: 12px 16px;
+  font-size: 12px;
+  font-weight: 600;
+  color: #64748b;
+  text-transform: uppercase;
+  letter-spacing: 0.5px;
+  border-bottom: 1px solid #e2e8f0;
+  background: #f8fafc;
+}
+.data-table td {
+  padding: 12px 16px;
+  font-size: 14px;
+  color: #475569;
+  border-bottom: 1px solid #f1f5f9;
+}
+.data-table tbody tr {
+  transition: background 0.15s;
+}
+.data-table tbody tr:hover {
+  background: #f8fafc;
+}
+.td--bold {
+  font-weight: 600;
+  color: #1e293b;
+}
+.td--muted {
+  color: #94a3b8;
+}
+
+.code-badge {
+  background: #eef2ff;
+  color: #6366f1;
+  padding: 3px 8px;
+  border-radius: 4px;
+  font-size: 12px;
+  font-weight: 600;
+  font-family: monospace;
+}
+.action-btns {
+  display: flex;
+  gap: 6px;
+}
+.btn-icon {
+  width: 32px;
+  height: 32px;
+  border: none;
+  border-radius: 6px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  cursor: pointer;
+  transition: all 0.15s;
+  text-decoration: none;
+}
+.btn-icon--edit {
+  background: #eff6ff;
+  color: #3b82f6;
+}
+.btn-icon--edit:hover {
+  background: #dbeafe;
+}
+.btn-icon--delete {
+  background: #fef2f2;
+  color: #ef4444;
+}
+.btn-icon--delete:hover {
+  background: #fee2e2;
+}
+
+.btn--primary {
+  display: inline-flex;
+  align-items: center;
+  gap: 8px;
+  padding: 8px 16px;
+  background: #6366f1;
+  color: white;
+  border: none;
+  border-radius: 6px;
+  font-size: 14px;
+  font-weight: 500;
+  text-decoration: none;
+  cursor: pointer;
+  transition: all 0.15s;
+}
+.btn--primary:hover {
+  background: #4f46e5;
+}

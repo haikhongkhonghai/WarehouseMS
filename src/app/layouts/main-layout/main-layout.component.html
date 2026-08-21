@@ -1,0 +1,27 @@
+<div class="layout">
+  <!-- Sidebar -->
+  <aside class="sidebar">
+    <div class="sidebar__brand">
+      <span class="sidebar__brand-icon">📦</span>
+      <span class="sidebar__brand-text">WarehouseMS</span>
+    </div>
+    <nav class="sidebar__nav">
+      <a routerLink="/categories" routerLinkActive="active" class="sidebar__link">
+        <span class="sidebar__link-icon">📂</span> Danh mục
+      </a>
+    </nav>
+  </aside>
+
+  <!-- Main Content Area -->
+  <div class="main-wrapper">
+    <header class="header">
+      <div class="header__user">
+        <span class="header__user-avatar">🧑</span>
+        <span class="header__user-name">Quản trị viên</span>
+      </div>
+    </header>
+    <main class="content">
+      <router-outlet></router-outlet>
+    </main>
+  </div>
+</div>

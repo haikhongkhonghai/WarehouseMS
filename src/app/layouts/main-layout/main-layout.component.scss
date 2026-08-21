@@ -1,0 +1,97 @@
+.layout {
+  display: flex;
+  height: 100vh;
+  width: 100vw;
+  overflow: hidden;
+  background-color: #ffffff;
+  color: #1e293b;
+  font-family:
+    'Inter',
+    system-ui,
+    -apple-system,
+    sans-serif;
+}
+.sidebar {
+  width: 208px;
+  background-color: #f8fafc;
+  border-right: 1px solid #e2e8f0;
+  display: flex;
+  flex-direction: column;
+}
+.sidebar__brand {
+  height: 56px;
+  display: flex;
+  align-items: center;
+  padding: 0 20px;
+  gap: 10px;
+  border-bottom: 1px solid #e2e8f0;
+}
+.sidebar__brand-icon {
+  font-size: 20px;
+}
+.sidebar__brand-text {
+  font-weight: 700;
+  font-size: 16px;
+  color: #0f172a;
+}
+.sidebar__nav {
+  padding: 16px 12px;
+  display: flex;
+  flex-direction: column;
+  gap: 4px;
+  flex: 1;
+}
+.sidebar__link {
+  display: flex;
+  align-items: center;
+  padding: 10px 12px;
+  color: #64748b;
+  text-decoration: none;
+  border-radius: 6px;
+  font-weight: 500;
+  font-size: 14px;
+  transition: all 0.15s;
+  gap: 10px;
+}
+.sidebar__link:hover {
+  background: #e2e8f0;
+  color: #1e293b;
+}
+.sidebar__link.active {
+  background: #6366f1;
+  color: white;
+}
+.sidebar__link-icon {
+  font-size: 15px;
+}
+.main-wrapper {
+  flex: 1;
+  display: flex;
+  flex-direction: column;
+  overflow: hidden;
+}
+.header {
+  height: 56px;
+  background-color: #ffffff;
+  border-bottom: 1px solid #e2e8f0;
+  display: flex;
+  align-items: center;
+  justify-content: flex-end;
+  padding: 0 32px;
+}
+.header__user {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  font-size: 14px;
+  color: #64748b;
+}
+.header__user-avatar {
+  font-size: 18px;
+}
+.content {
+  flex: 1;
+  padding: 32px;
+  overflow-y: auto;
+  background: #f8fafc;
+}
