@@ -2,12 +2,16 @@ import { Component, inject, OnInit, PLATFORM_ID } from '@angular/core';
 import { isPlatformBrowser } from '@angular/common';
 import { RouterOutlet } from '@angular/router';
 import { SeedDataService } from './core/services/seed-data.service';
+import { NotificationComponent } from './shared/components/notification/notification.component';
 
 @Component({
   selector: 'app-root',
   standalone: true,
-  imports: [RouterOutlet],
-  template: `<router-outlet></router-outlet>`,
+  imports: [RouterOutlet, NotificationComponent],
+  template: `
+    <router-outlet></router-outlet>
+    <app-notification />
+  `,
   styles: [
     `
       :host {
