@@ -1,15 +1,19 @@
+/* ── Card & Table ── */
 .card {
   background: #ffffff;
   border: 1px solid #e2e8f0;
   overflow: hidden;
 }
+
 .table-container {
   overflow-x: auto;
 }
+
 .data-table {
   width: 100%;
   border-collapse: collapse;
 }
+
 .data-table th {
   text-align: left;
   padding: 12px 16px;
@@ -21,26 +25,32 @@
   border-bottom: 1px solid #e2e8f0;
   background: #f8fafc;
 }
+
 .data-table td {
   padding: 12px 16px;
   font-size: 14px;
   color: #475569;
   border-bottom: 1px solid #f1f5f9;
 }
+
 .data-table tbody tr {
   transition: background 0.15s;
 }
+
 .data-table tbody tr:hover {
   background: #f8fafc;
 }
+
 .td--bold {
   font-weight: 600;
   color: #1e293b;
 }
+
 .td--muted {
   color: #94a3b8;
 }
 
+/* ── Code badge ── */
 .code-badge {
   background: #eef2ff;
   color: #6366f1;
@@ -50,10 +60,13 @@
   font-weight: 600;
   font-family: monospace;
 }
+
+/* ── Action buttons ── */
 .action-btns {
   display: flex;
   gap: 6px;
 }
+
 .btn-icon {
   width: 32px;
   height: 32px;
@@ -66,21 +79,26 @@
   transition: all 0.15s;
   text-decoration: none;
 }
+
 .btn-icon--edit {
   background: #eff6ff;
   color: #3b82f6;
 }
+
 .btn-icon--edit:hover {
   background: #dbeafe;
 }
+
 .btn-icon--delete {
   background: #fef2f2;
   color: #ef4444;
 }
+
 .btn-icon--delete:hover {
   background: #fee2e2;
 }
 
+/* ── Primary button ── */
 .btn--primary {
   display: inline-flex;
   align-items: center;
@@ -96,6 +114,105 @@
   cursor: pointer;
   transition: all 0.15s;
 }
+
 .btn--primary:hover {
   background: #4f46e5;
+}
+
+/* ── Filters bar ── */
+.filters-bar {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+  margin-bottom: 16px;
+  flex-wrap: wrap;
+}
+
+.filter-input {
+  flex: 1;
+  min-width: 200px;
+  padding: 8px 14px;
+  background: #ffffff;
+  border: 1px solid #d1d5db;
+  border-radius: 6px;
+  font-size: 14px;
+  color: #1e293b;
+  outline: none;
+  transition: border-color 0.15s;
+}
+
+.filter-input:focus {
+  border-color: #6366f1;
+  box-shadow: 0 0 0 2px rgba(99, 102, 241, 0.1);
+}
+
+.filter-input::placeholder {
+  color: #94a3b8;
+}
+
+/* ── Sortable column header ── */
+.th--sortable {
+  cursor: pointer;
+  user-select: none;
+  transition: color 0.15s;
+}
+
+.th-content {
+  display: inline-flex;
+  align-items: center;
+  gap: 4px;
+}
+
+.th--sortable:hover {
+  color: #6366f1;
+}
+
+.sort-icon {
+  width: 14px;
+  height: 14px;
+  color: #94a3b8;
+  transition: color 0.15s;
+}
+
+.sort-arrow-up,
+.sort-arrow-down {
+  transition:
+    opacity 0.15s,
+    stroke-width 0.15s;
+  opacity: 0.4;
+}
+
+.th--sortable:hover .sort-icon {
+  color: #6366f1;
+}
+
+.th--sortable:hover .sort-arrow-up,
+.th--sortable:hover .sort-arrow-down {
+  opacity: 0.7;
+}
+
+.sort-icon--asc {
+  color: #6366f1 !important;
+}
+
+.sort-icon--asc .sort-arrow-up {
+  opacity: 1 !important;
+  stroke-width: 3.5px;
+}
+
+.sort-icon--asc .sort-arrow-down {
+  opacity: 0.15 !important;
+}
+
+.sort-icon--desc {
+  color: #6366f1 !important;
+}
+
+.sort-icon--desc .sort-arrow-down {
+  opacity: 1 !important;
+  stroke-width: 3.5px;
+}
+
+.sort-icon--desc .sort-arrow-up {
+  opacity: 0.15 !important;
 }

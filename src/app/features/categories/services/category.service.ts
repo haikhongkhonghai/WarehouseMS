@@ -51,6 +51,36 @@ export class CategoryService {
     return this.getAll().map((c) => c.maDanhMuc);
   }
 
+  search(keyword: string, categories: Category[]): Category[] {
+    if (!keyword.trim()) {
+      return categories;
+    }
+    const lower = keyword.toLowerCase().trim();
+    return categories.filter(
+      (c) =>
+        c.tenDanhMuc.toLowerCase().includes(lower) ||
+        (c.moTa && c.moTa.toLowerCase().includes(lower))
+    );
+  }
+
+  sort(
+    field: 'tenDanhMuc' | 'productCount',
+    direction: 'asc' | 'desc',
+    categories: Category[],
+    productCountFn?: (id: number) => number
+  ): Category[] {
+    const dir = direction === 'asc' ? 1 : -1;
+    return [...categories].sort((a, b) => {
+      if (field === 'tenDanhMuc') {
+        return a.tenDanhMuc.localeCompare(b.tenDanhMuc, 'vi') * dir;
+      } else {
+        const countA = productCountFn ? productCountFn(a.id) : 0;
+        const countB = productCountFn ? productCountFn(b.id) : 0;
+        return (countA - countB) * dir;
+      }
+    });
+  }
+
   private validateUniqueMa(maDanhMuc: string): void {
     const existing = this.getAll();
     if (existing.some((c) => c.maDanhMuc === maDanhMuc)) {
