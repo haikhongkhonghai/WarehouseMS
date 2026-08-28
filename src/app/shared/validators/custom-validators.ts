@@ -1,23 +1,37 @@
 import { AbstractControl, ValidationErrors, ValidatorFn } from '@angular/forms';
 
 export class CustomValidators {
-  /**
-   * Validator kiểm tra xem mã nhập vào đã tồn tại trong hệ thống chưa.
-   * @param existingCodes Danh sách các mã hiện tại.
-   * @param currentCode Mã hiện tại (nếu đang ở chế độ chỉnh sửa) để bỏ qua kiểm tra.
-   */
-  static uniqueCode(existingCodes: string[], currentCode?: string): ValidatorFn {
-    return (control: AbstractControl): ValidationErrors | null => {
-      const value = control.value?.toString().trim();
-      if (!value) return null;
 
-      if (currentCode && value.toLowerCase() === currentCode.toLowerCase()) {
+  static nonNegative(): ValidatorFn {
+    return (control: AbstractControl): ValidationErrors | null => {
+      const value = control.value;
+      if (value === null || value === undefined || value === '') {
         return null;
       }
+      return Number(value) >= 0 ? null : { nonNegative: true };
+    };
+  }
 
-      const isDuplicate = existingCodes.some((code) => code.toLowerCase() === value.toLowerCase());
+  static positiveNumber(): ValidatorFn {
+    return (control: AbstractControl): ValidationErrors | null => {
+      const value = control.value;
+      if (value === null || value === undefined || value === '') {
+        return null;
+      }
+      return Number(value) > 0 ? null : { positiveNumber: true };
+    };
+  }
 
-      return isDuplicate ? { uniqueCode: true } : null;
+  static uniqueCode(existingCodes: string[], currentCode?: string): ValidatorFn {
+    return (control: AbstractControl): ValidationErrors | null => {
+      const value = control.value?.trim();
+      if (!value) {
+        return null;
+      }
+      if (currentCode && value === currentCode) {
+        return null;
+      }
+      return existingCodes.includes(value) ? { uniqueCode: true } : null;
     };
   }
 }

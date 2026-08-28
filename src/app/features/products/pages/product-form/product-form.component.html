@@ -1,0 +1,91 @@
+<app-page-header [title]="isEditMode() ? 'Sửa sản phẩm' : 'Thêm sản phẩm'"
+    [subtitle]="isEditMode() ? 'Cập nhật thông tin sản phẩm' : 'Tạo sản phẩm mới'">
+    <a routerLink="/products" class="btn btn--secondary">← Quay lại</a>
+</app-page-header>
+
+<div class="card">
+    <form [formGroup]="form" (ngSubmit)="onSubmit()" class="form">
+        <div class="form-row">
+            <div class="form-group">
+                <label class="form-label" for="maSanPham">Mã sản phẩm <span class="required">*</span></label>
+                <input id="maSanPham" class="form-control" formControlName="maSanPham" placeholder="VD: SP-001"
+                    [class.form-control--error]="isFieldInvalid('maSanPham')" />
+                @if (isFieldInvalid('maSanPham')) {
+                <div class="form-error">
+                    @if (form.get('maSanPham')?.hasError('required')) { Mã sản phẩm là bắt buộc. }
+                    @else if (form.get('maSanPham')?.hasError('uniqueCode')) { Mã sản phẩm đã tồn tại. }
+                </div>
+                }
+            </div>
+            <div class="form-group">
+                <label class="form-label" for="tenSanPham">Tên sản phẩm <span class="required">*</span></label>
+                <input id="tenSanPham" class="form-control" formControlName="tenSanPham" placeholder="Nhập tên sản phẩm"
+                    [class.form-control--error]="isFieldInvalid('tenSanPham')" />
+                @if (isFieldInvalid('tenSanPham')) { <div class="form-error">Tên sản phẩm là bắt buộc.</div> }
+            </div>
+        </div>
+
+        <div class="form-row">
+            <div class="form-group">
+                <label class="form-label" for="idDanhMuc">Danh mục <span class="required">*</span></label>
+                <select id="idDanhMuc" class="form-control" formControlName="idDanhMuc"
+                    [class.form-control--error]="isFieldInvalid('idDanhMuc')">
+                    <option [ngValue]="null" disabled>Chọn danh mục</option>
+                    @for (cat of categories(); track cat.id) { <option [ngValue]="cat.id">{{ cat.tenDanhMuc }}</option>
+                    }
+                </select>
+                @if (isFieldInvalid('idDanhMuc')) { <div class="form-error">Vui lòng chọn danh mục.</div> }
+            </div>
+            <div class="form-group">
+                <label class="form-label" for="donViTinh">Đơn vị tính <span class="required">*</span></label>
+                <input id="donViTinh" class="form-control" formControlName="donViTinh" placeholder="VD: Cái, Hộp, Kg"
+                    [class.form-control--error]="isFieldInvalid('donViTinh')" />
+                @if (isFieldInvalid('donViTinh')) { <div class="form-error">Đơn vị tính là bắt buộc.</div> }
+            </div>
+        </div>
+
+        <div class="form-row">
+            <div class="form-group">
+                <label class="form-label" for="giaNhap">Giá nhập <span class="required">*</span></label>
+                <input id="giaNhap" type="number" class="form-control" formControlName="giaNhap" placeholder="0"
+                    [class.form-control--error]="isFieldInvalid('giaNhap')" />
+                @if (isFieldInvalid('giaNhap')) { <div class="form-error">Giá nhập phải >= 0.</div> }
+            </div>
+            <div class="form-group">
+                <label class="form-label" for="giaBan">Giá bán <span class="required">*</span></label>
+                <input id="giaBan" type="number" class="form-control" formControlName="giaBan" placeholder="0"
+                    [class.form-control--error]="isFieldInvalid('giaBan')" />
+                @if (isFieldInvalid('giaBan')) { <div class="form-error">Giá bán phải >= 0.</div> }
+            </div>
+        </div>
+
+        <div class="form-row">
+            <div class="form-group">
+                <label class="form-label" for="soLuongTon">Số lượng tồn</label>
+                <input id="soLuongTon" type="number" class="form-control" formControlName="soLuongTon" placeholder="0"
+                    [class.form-control--error]="isFieldInvalid('soLuongTon')" />
+                @if (isFieldInvalid('soLuongTon')) { <div class="form-error">Số lượng tồn phải >= 0.</div> }
+            </div>
+            <div class="form-group">
+                <label class="form-label" for="tonToiThieu">Tồn tối thiểu</label>
+                <input id="tonToiThieu" type="number" class="form-control" formControlName="tonToiThieu" placeholder="0"
+                    [class.form-control--error]="isFieldInvalid('tonToiThieu')" />
+                @if (isFieldInvalid('tonToiThieu')) { <div class="form-error">Tồn tối thiểu phải >= 0.</div> }
+            </div>
+        </div>
+
+        <div class="form-group">
+            <label class="form-label" for="trangThai">Trạng thái</label>
+            <select id="trangThai" class="form-control" formControlName="trangThai">
+                <option [ngValue]="TrangThai.DANG_KINH_DOANH">Đang kinh doanh</option>
+                <option [ngValue]="TrangThai.NGUNG_KINH_DOANH">Ngừng kinh doanh</option>
+            </select>
+        </div>
+
+        <div class="form-actions">
+            <a routerLink="/products" class="btn btn--secondary">Hủy</a>
+            <button type="submit" class="btn btn--primary" [disabled]="form.invalid">{{ isEditMode() ? 'Cập nhật' :
+                'Thêm mới' }}</button>
+        </div>
+    </form>
+</div>
