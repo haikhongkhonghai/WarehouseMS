@@ -5,6 +5,7 @@ import { ProductService } from '../../services/product.service';
 import { CategoryService } from '../../../categories/services/category.service';
 import { NotificationService } from '../../../../core/services/notification.service';
 import { CustomValidators } from '../../../../shared/validators/custom-validators';
+import { sanitizeForm } from '../../../../core/utils/form.utils';
 import { Product, TrangThaiSanPham } from '../../models/product.model';
 import { Category } from '../../../categories/models/category.model';
 import { PageHeaderComponent } from '../../../../shared/components/page-header/page-header.component';
@@ -44,10 +45,10 @@ export class ProductFormComponent implements OnInit {
         const existingCodes = this.productService.getAllCodes();
         const currentCode = this.editingProduct?.maSanPham;
         this.form = this.fb.group({
-            maSanPham: [this.editingProduct?.maSanPham ?? '', [Validators.required, CustomValidators.uniqueCode(existingCodes, currentCode)]],
-            tenSanPham: [this.editingProduct?.tenSanPham ?? '', [Validators.required]],
+            maSanPham: [this.editingProduct?.maSanPham ?? '', [CustomValidators.notBlank(), CustomValidators.uniqueCode(existingCodes, currentCode)]],
+            tenSanPham: [this.editingProduct?.tenSanPham ?? '', [CustomValidators.notBlank()]],
             idDanhMuc: [this.editingProduct?.idDanhMuc ?? null, [Validators.required]],
-            donViTinh: [this.editingProduct?.donViTinh ?? '', [Validators.required]],
+            donViTinh: [this.editingProduct?.donViTinh ?? '', [CustomValidators.notBlank()]],
             giaNhap: [this.editingProduct?.giaNhap ?? 0, [Validators.required, CustomValidators.nonNegative()]],
             giaBan: [this.editingProduct?.giaBan ?? 0, [Validators.required, CustomValidators.nonNegative()]],
             soLuongTon: [this.editingProduct?.soLuongTon ?? 0, [CustomValidators.nonNegative()]],
@@ -63,6 +64,7 @@ export class ProductFormComponent implements OnInit {
 
     protected onSubmit(): void {
         if (this.form.invalid) return;
+        sanitizeForm(this.form, 'maSanPham', 'tenSanPham', 'donViTinh');
         try {
             const formValue = this.form.getRawValue();
             if (this.isEditMode() && this.editingProduct) {

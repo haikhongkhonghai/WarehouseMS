@@ -2,6 +2,19 @@ import { AbstractControl, ValidationErrors, ValidatorFn } from '@angular/forms';
 
 export class CustomValidators {
 
+  static notBlank(): ValidatorFn {
+    return (control: AbstractControl): ValidationErrors | null => {
+      const value = control.value;
+      if (value === null || value === undefined) {
+        return { required: true };
+      }
+      if (typeof value === 'string' && value.trim().length === 0) {
+        return { required: true };
+      }
+      return null;
+    };
+  }
+
   static nonNegative(): ValidatorFn {
     return (control: AbstractControl): ValidationErrors | null => {
       const value = control.value;
@@ -9,16 +22,6 @@ export class CustomValidators {
         return null;
       }
       return Number(value) >= 0 ? null : { nonNegative: true };
-    };
-  }
-
-  static positiveNumber(): ValidatorFn {
-    return (control: AbstractControl): ValidationErrors | null => {
-      const value = control.value;
-      if (value === null || value === undefined || value === '') {
-        return null;
-      }
-      return Number(value) > 0 ? null : { positiveNumber: true };
     };
   }
 

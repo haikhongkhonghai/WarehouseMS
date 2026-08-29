@@ -4,6 +4,7 @@ import { ReactiveFormsModule, FormBuilder, FormGroup, Validators } from '@angula
 import { CategoryService } from '../../services/category.service';
 import { NotificationService } from '../../../../core/services/notification.service';
 import { CustomValidators } from '../../../../shared/validators/custom-validators';
+import { sanitizeForm } from '../../../../core/utils/form.utils';
 import { Category } from '../../models/category.model';
 import { PageHeaderComponent } from '../../../../shared/components/page-header/page-header.component';
 
@@ -42,9 +43,9 @@ export class CategoryFormComponent implements OnInit {
     this.form = this.fb.group({
       maDanhMuc: [
         this.editingCategory?.maDanhMuc ?? '',
-        [Validators.required, CustomValidators.uniqueCode(existingCodes, currentCode)],
+        [CustomValidators.notBlank(), CustomValidators.uniqueCode(existingCodes, currentCode)],
       ],
-      tenDanhMuc: [this.editingCategory?.tenDanhMuc ?? '', [Validators.required]],
+      tenDanhMuc: [this.editingCategory?.tenDanhMuc ?? '', [CustomValidators.notBlank()]],
       moTa: [this.editingCategory?.moTa ?? ''],
     });
   }
@@ -56,6 +57,7 @@ export class CategoryFormComponent implements OnInit {
 
   protected onSubmit(): void {
     if (this.form.invalid) return;
+    sanitizeForm(this.form, 'maDanhMuc', 'tenDanhMuc', 'moTa');
 
     try {
       const formValue = this.form.getRawValue();
