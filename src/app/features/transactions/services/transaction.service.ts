@@ -80,10 +80,11 @@ export class TransactionService {
         });
     }
 
-    generateMaPhieu(type: LoaiPhieu): string {
-        const prefix = type === LoaiPhieu.NHAP ? APP_CONSTANTS.IMPORT_PREFIX : APP_CONSTANTS.EXPORT_PREFIX;
-        const transactions = this.getByType(type);
-        const nextNumber = transactions.length + 1;
+    generateMaPhieu(type: LoaiPhieu, isPreview: boolean = false): string {
+        const isImport = type === LoaiPhieu.NHAP;
+        const prefix = isImport ? APP_CONSTANTS.IMPORT_PREFIX : APP_CONSTANTS.EXPORT_PREFIX;
+        const seqKey = isImport ? STORAGE_KEYS.IMPORT_CODE_SEQ : STORAGE_KEYS.EXPORT_CODE_SEQ;
+        const nextNumber = isPreview ? this.ls.getSequence(seqKey) : this.ls.generateNextId(seqKey);
         return `${prefix}-${nextNumber.toString().padStart(3, '0')}`;
     }
 

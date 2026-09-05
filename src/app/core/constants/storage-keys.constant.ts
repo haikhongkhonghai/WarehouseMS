@@ -7,4 +7,6 @@ export const STORAGE_KEYS = {
   TRANSACTIONS_SEQ: 'Transactions_Seq',
   TRANSACTION_DETAILS_DATA: 'TransactionDetails_Data',
   TRANSACTION_DETAILS_SEQ: 'TransactionDetails_Seq',
+  IMPORT_CODE_SEQ: 'ImportCode_Seq',
+  EXPORT_CODE_SEQ: 'ExportCode_Seq',
 };

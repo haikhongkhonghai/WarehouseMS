@@ -22,7 +22,7 @@ import { Component, input } from '@angular/core';
         display: flex;
         justify-content: space-between;
         align-items: center;
-        margin-bottom: 24px;
+        margin-bottom: 12px;
         gap: 16px;
         flex-wrap: wrap;
       }

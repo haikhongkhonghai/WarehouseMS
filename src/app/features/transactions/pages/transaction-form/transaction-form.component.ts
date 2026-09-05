@@ -1,4 +1,4 @@
-import { Component, inject, OnInit, signal } from '@angular/core';
+import { Component, inject, OnInit, signal, computed } from '@angular/core';
 import { ActivatedRoute, Router, RouterLink } from '@angular/router';
 import { ReactiveFormsModule, FormBuilder, FormGroup, FormArray, Validators } from '@angular/forms';
 import { CurrencyPipe } from '@angular/common';
@@ -30,6 +30,16 @@ export class TransactionFormComponent implements OnInit {
   protected readonly maPhieu = signal('');
   protected readonly products = signal<Product[]>([]);
   protected form!: FormGroup;
+  
+  protected readonly detailsData = signal<any[]>([]);
+
+  protected readonly rowTotals = computed(() => {
+    return this.detailsData().map(d => this.transactionService.calculateItemTotal(d.soLuong, d.donGia));
+  });
+
+  protected readonly grandTotal = computed(() => {
+    return this.transactionService.calculateSummary(this.detailsData()).tongGiaTri;
+  });
 
   protected isImport(): boolean {
     return this.type() === LoaiPhieu.NHAP;
@@ -42,10 +52,15 @@ export class TransactionFormComponent implements OnInit {
   ngOnInit(): void {
     this.type.set(this.route.snapshot.data['loaiPhieu']);
     this.products.set(this.productService.getAll());
-    this.maPhieu.set(this.transactionService.generateMaPhieu(this.type()));
+    this.maPhieu.set(this.transactionService.generateMaPhieu(this.type(), true));
     this.form = this.fb.group({
       ghiChu: [''],
       details: this.fb.array([this.createDetailGroup()]),
+    });
+    
+    this.detailsData.set(this.detailsArray.getRawValue());
+    this.form.get('details')!.valueChanges.subscribe(val => {
+      this.detailsData.set(val);
     });
   }
 
@@ -74,18 +89,6 @@ export class TransactionFormComponent implements OnInit {
         group.patchValue({ donGia: this.isImport() ? product.giaNhap : product.giaBan });
       }
     }
-  }
-
-  protected getRowTotal(index: number): number {
-    const group = this.detailsArray.at(index) as FormGroup;
-    const soLuong = group.get('soLuong')?.value || 0;
-    const donGia = group.get('donGia')?.value || 0;
-    return this.transactionService.calculateItemTotal(soLuong, donGia);
-  }
-
-  protected getGrandTotal(): number {
-    const rawDetails = this.detailsArray.getRawValue();
-    return this.transactionService.calculateSummary(rawDetails).tongGiaTri;
   }
 
   protected onSubmit(): void {

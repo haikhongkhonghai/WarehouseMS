@@ -42,7 +42,7 @@
                     <input type="number" class="form-control" formControlName="donGia" min="0" placeholder="0" />
                 </div>
                 <div class="col col--total">
-                    {{ getRowTotal(i) | currency:'VND':'symbol':'1.0-0' }}
+                    {{ rowTotals()[i] | currency:'VND':'symbol':'1.0-0' }}
                 </div>
                 <div class="col col--action">
                     @if (detailsArray.length > 1) {
@@ -55,7 +55,7 @@
 
         <div class="total-row">
             <strong>Tổng cộng:</strong>
-            <span class="total-value">{{ getGrandTotal() | currency:'VND':'symbol':'1.0-0' }}</span>
+            <span class="total-value">{{ grandTotal() | currency:'VND':'symbol':'1.0-0' }}</span>
         </div>
 
         <div class="form-actions">
