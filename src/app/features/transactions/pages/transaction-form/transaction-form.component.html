@@ -1,0 +1,68 @@
+<app-page-header [title]="isImport() ? 'Tạo phiếu nhập' : 'Tạo phiếu xuất'" [subtitle]="'Mã phiếu: ' + maPhieu()">
+    <a [routerLink]="isImport() ? '/transactions/import' : '/transactions/export'" class="btn btn--secondary">← Quay
+        lại</a>
+</app-page-header>
+
+<div class="card">
+    <form [formGroup]="form" (ngSubmit)="onSubmit()">
+        <div class="form-group">
+            <label class="form-label">Ghi chú</label>
+            <textarea class="form-control form-control--textarea" formControlName="ghiChu" placeholder="Nhập ghi chú..."
+                rows="2"></textarea>
+        </div>
+
+        <div class="section-header">
+            <h3>Chi tiết sản phẩm</h3>
+            <button type="button" class="btn btn--outline" (click)="addDetail()">+ Thêm dòng</button>
+        </div>
+
+        <div class="details-table" formArrayName="details">
+            <div class="details-header">
+                <span class="col col--product">Sản phẩm</span>
+                <span class="col col--qty">Số lượng</span>
+                <span class="col col--price">Đơn giá</span>
+                <span class="col col--total">Thành tiền</span>
+                <span class="col col--action"></span>
+            </div>
+            @for (detail of detailsArray.controls; track $index; let i = $index) {
+            <div class="details-row" [formGroupName]="i">
+                <div class="col col--product">
+                    <select class="form-control" formControlName="idSanPham" (change)="onProductChange(i)">
+                        <option [ngValue]="null" disabled>Chọn sản phẩm</option>
+                        @for (p of products(); track p.id) {
+                        <option [ngValue]="p.id">{{ p.maSanPham }} - {{ p.tenSanPham }} (Tồn: {{ p.soLuongTon }})
+                        </option>
+                        }
+                    </select>
+                </div>
+                <div class="col col--qty">
+                    <input type="number" class="form-control" formControlName="soLuong" min="1" placeholder="0" />
+                </div>
+                <div class="col col--price">
+                    <input type="number" class="form-control" formControlName="donGia" min="0" placeholder="0" />
+                </div>
+                <div class="col col--total">
+                    {{ getRowTotal(i) | currency:'VND':'symbol':'1.0-0' }}
+                </div>
+                <div class="col col--action">
+                    @if (detailsArray.length > 1) {
+                    <button type="button" class="btn-icon btn-icon--delete" (click)="removeDetail(i)">✕</button>
+                    }
+                </div>
+            </div>
+            }
+        </div>
+
+        <div class="total-row">
+            <strong>Tổng cộng:</strong>
+            <span class="total-value">{{ getGrandTotal() | currency:'VND':'symbol':'1.0-0' }}</span>
+        </div>
+
+        <div class="form-actions">
+            <a [routerLink]="isImport() ? '/transactions/import' : '/transactions/export'"
+                class="btn btn--secondary">Hủy</a>
+            <button type="submit" class="btn btn--primary" [disabled]="form.invalid || detailsArray.length === 0">Lưu
+                phiếu</button>
+        </div>
+    </form>
+</div>

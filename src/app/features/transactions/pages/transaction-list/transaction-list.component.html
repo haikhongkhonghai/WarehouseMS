@@ -1,0 +1,63 @@
+<app-page-header [title]="isImport() ? 'Quản lý Phiếu nhập' : 'Quản lý Phiếu xuất'"
+    [subtitle]="isImport() ? 'Danh sách các phiếu nhập kho' : 'Danh sách các phiếu xuất kho'">
+    <a [routerLink]="isImport() ? '/transactions/import/new' : '/transactions/export/new'" class="btn btn--primary">
+        <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+            <line x1="12" y1="5" x2="12" y2="19" />
+            <line x1="5" y1="12" x2="19" y2="12" />
+        </svg>
+        {{ isImport() ? 'Tạo phiếu nhập' : 'Tạo phiếu xuất' }}
+    </a>
+</app-page-header>
+
+<div class="filters-bar">
+    <input class="filter-input" placeholder="Tìm theo mã phiếu..." [ngModel]="searchKeyword()"
+        (ngModelChange)="searchKeyword.set($event)" />
+    <input class="filter-input filter-input--date" type="date" [ngModel]="dateFrom()"
+        (ngModelChange)="dateFrom.set($event)" placeholder="Từ ngày" />
+    <input class="filter-input filter-input--date" type="date" [ngModel]="dateTo()" (ngModelChange)="dateTo.set($event)"
+        placeholder="Đến ngày" />
+</div>
+
+@if (filteredTransactions().length > 0) {
+<div class="card">
+    <div class="table-container">
+        <table class="data-table">
+            <thead>
+                <tr>
+                    <th>Mã phiếu</th>
+                    <th>Ngày tạo</th>
+                    <th>Số sản phẩm</th>
+                    <th>Tổng số lượng</th>
+                    <th>Tổng giá trị</th>
+                    <th>Ghi chú</th>
+                    <th>Thao tác</th>
+                </tr>
+            </thead>
+            <tbody>
+                @for (tx of filteredTransactions(); track tx.id) {
+                <tr>
+                    <td><span class="code-badge">{{ tx.maPhieu }}</span></td>
+                    <td>{{ tx.ngayTao }}</td>
+                    <td>{{ tx.soSanPham }}</td>
+                    <td>{{ tx.tongSoLuong }}</td>
+                    <td class="td--bold">{{ tx.tongGiaTri | currency:'VND':'symbol':'1.0-0' }}</td>
+                    <td class="td--muted">{{ tx.ghiChu || '—' }}</td>
+                    <td>
+                        <a [routerLink]="[(isImport() ? '/transactions/import/' : '/transactions/export/') + tx.id]"
+                            class="btn-icon btn-icon--view" title="Xem chi tiết">
+                            <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor"
+                                stroke-width="2">
+                                <path d="M1 12s4-8 11-8 11 8 11 8-4 8-11 8-11-8-11-8z" />
+                                <circle cx="12" cy="12" r="3" />
+                            </svg>
+                        </a>
+                    </td>
+                </tr>
+                }
+            </tbody>
+        </table>
+    </div>
+</div>
+} @else {
+<div class="card"><app-empty-state message="Không có phiếu nào" /></div>
+}

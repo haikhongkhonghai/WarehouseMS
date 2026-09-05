@@ -1,0 +1,80 @@
+@if (transaction()) {
+<app-page-header [title]="'Chi tiết ' + (transaction()!.loaiPhieu === LoaiPhieu.NHAP ? 'Phiếu nhập' : 'Phiếu xuất')"
+    [subtitle]="transaction()!.maPhieu">
+    <a [routerLink]="transaction()!.loaiPhieu === LoaiPhieu.NHAP ? '/transactions/import' : '/transactions/export'"
+        class="btn btn--secondary">← Quay lại</a>
+</app-page-header>
+
+<div class="card">
+    <div class="info-grid">
+        <div class="info-item">
+            <span class="info-label">Mã phiếu</span>
+            <span class="info-value"><span class="code-badge">{{ transaction()!.maPhieu }}</span></span>
+        </div>
+        <div class="info-item">
+            <span class="info-label">Loại phiếu</span>
+            <span class="info-value">{{ transaction()!.loaiPhieu }}</span>
+        </div>
+        <div class="info-item">
+            <span class="info-label">Ngày tạo</span>
+            <span class="info-value">{{ transaction()!.ngayTao }}</span>
+        </div>
+        <div class="info-item">
+            <span class="info-label">Số sản phẩm</span>
+            <span class="info-value">{{ summary().soSanPham }} dòng</span>
+        </div>
+        <div class="info-item">
+            <span class="info-label">Tổng số lượng</span>
+            <span class="info-value">{{ summary().tongSoLuong }}</span>
+        </div>
+        <div class="info-item">
+            <span class="info-label">Tổng giá trị</span>
+            <span class="info-value info-value--highlight">{{ summary().tongGiaTri | currency:'VND':'symbol':'1.0-0' }}</span>
+        </div>
+        <div class="info-item info-item--full">
+            <span class="info-label">Ghi chú</span>
+            <span class="info-value">{{ transaction()!.ghiChu || '—' }}</span>
+        </div>
+    </div>
+
+    <h3 class="section-title">Chi tiết sản phẩm</h3>
+    <div class="table-container">
+        <table class="data-table">
+            <thead>
+                <tr>
+                    <th>#</th>
+                    <th>Mã SP</th>
+                    <th>Tên sản phẩm</th>
+                    <th>Số lượng</th>
+                    <th>Đơn giá</th>
+                    <th>Thành tiền</th>
+                </tr>
+            </thead>
+            <tbody>
+                @for (detail of details(); track detail.id; let i = $index) {
+                <tr>
+                    <td>{{ i + 1 }}</td>
+                    <td><span class="code-badge">{{ getProductCode(detail.idSanPham) }}</span></td>
+                    <td>{{ getProductName(detail.idSanPham) }}</td>
+                    <td>{{ detail.soLuong }}</td>
+                    <td>{{ detail.donGia | currency:'VND':'symbol':'1.0-0' }}</td>
+                    <td class="td--bold">{{ getItemTotal(detail) | currency:'VND':'symbol':'1.0-0' }}</td>
+                </tr>
+                }
+            </tbody>
+            <tfoot>
+                <tr>
+                    <td colspan="3" class="total-label">Tổng cộng ({{ summary().soSanPham }} sản phẩm)</td>
+                    <td class="total-value">{{ summary().tongSoLuong }}</td>
+                    <td></td>
+                    <td class="total-value">{{ summary().tongGiaTri | currency:'VND':'symbol':'1.0-0' }}</td>
+                </tr>
+            </tfoot>
+        </table>
+    </div>
+</div>
+} @else {
+<div class="card">
+    <p class="not-found">Không tìm thấy phiếu.</p>
+</div>
+}

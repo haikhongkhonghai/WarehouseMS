@@ -25,6 +25,16 @@ export class CustomValidators {
     };
   }
 
+  static positiveNumber(): ValidatorFn {
+    return (control: AbstractControl): ValidationErrors | null => {
+      const value = control.value;
+      if (value === null || value === undefined || value === '') {
+        return null;
+      }
+      return Number(value) > 0 ? null : { positiveNumber: true };
+    };
+  }
+
   static uniqueCode(existingCodes: string[], currentCode?: string): ValidatorFn {
     return (control: AbstractControl): ValidationErrors | null => {
       const value = control.value?.trim();

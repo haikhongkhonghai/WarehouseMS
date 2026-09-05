@@ -1,0 +1,218 @@
+/* ── Card (synced with category-form / product-form) ── */
+.card {
+  background: #ffffff;
+  border: 1px solid #e2e8f0;
+  padding: 28px;
+}
+
+/* ── Form layout ── */
+.form-group {
+  display: flex;
+  flex-direction: column;
+  gap: 8px;
+  margin-bottom: 20px;
+}
+
+.form-label {
+  font-size: 14px;
+  font-weight: 500;
+  color: #374151;
+}
+
+.form-control {
+  background: #ffffff;
+  border: 1px solid #d1d5db;
+  border-radius: 6px;
+  padding: 10px 14px;
+  font-size: 14px;
+  color: #1e293b;
+  outline: none;
+  transition: border-color 0.15s;
+  width: 100%;
+  box-sizing: border-box;
+}
+
+.form-control:focus {
+  border-color: #6366f1;
+  box-shadow: 0 0 0 2px rgba(99, 102, 241, 0.1);
+}
+
+.form-control--textarea {
+  resize: vertical;
+  font-family: inherit;
+}
+
+/* ── Section header ── */
+.section-header {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  margin-bottom: 16px;
+
+  h3 {
+    font-size: 16px;
+    font-weight: 600;
+    color: #1e293b;
+    margin: 0;
+  }
+}
+
+/* ── Details table ── */
+.details-header {
+  display: flex;
+  gap: 12px;
+  padding: 10px 0;
+  border-bottom: 1px solid #e2e8f0;
+  background: #f8fafc;
+  border-radius: 6px 6px 0 0;
+  padding-left: 12px;
+  padding-right: 12px;
+
+  .col {
+    font-size: 12px;
+    font-weight: 600;
+    color: #64748b;
+    text-transform: uppercase;
+    letter-spacing: 0.5px;
+  }
+}
+
+.details-row {
+  display: flex;
+  gap: 12px;
+  align-items: center;
+  padding: 10px 12px;
+  border-bottom: 1px solid #f1f5f9;
+  transition: background 0.15s;
+
+  &:hover {
+    background: #f8fafc;
+  }
+}
+
+.col {
+  display: flex;
+  align-items: center;
+}
+
+.col--product {
+  flex: 3;
+}
+
+.col--qty {
+  flex: 1;
+  min-width: 90px;
+}
+
+.col--price {
+  flex: 1.2;
+  min-width: 110px;
+}
+
+.col--total {
+  flex: 1.2;
+  min-width: 110px;
+  font-weight: 600;
+  color: #1e293b;
+  font-size: 14px;
+}
+
+.col--action {
+  flex: 0 0 40px;
+  justify-content: center;
+}
+
+/* ── Total row ── */
+.total-row {
+  display: flex;
+  justify-content: flex-end;
+  align-items: center;
+  gap: 16px;
+  margin-top: 16px;
+  padding: 12px 0;
+  border-top: 2px solid #e2e8f0;
+  font-size: 16px;
+  color: #1e293b;
+}
+
+.total-value {
+  font-weight: 700;
+  color: #6366f1;
+  font-size: 18px;
+}
+
+/* ── Buttons ── */
+.btn {
+  padding: 8px 16px;
+  border-radius: 6px;
+  font-size: 14px;
+  font-weight: 500;
+  cursor: pointer;
+  text-decoration: none;
+  border: none;
+  transition: all 0.15s;
+}
+
+.btn--primary {
+  background: #6366f1;
+  color: white;
+}
+
+.btn--primary:hover:not(:disabled) {
+  background: #4f46e5;
+}
+
+.btn--primary:disabled {
+  opacity: 0.5;
+  cursor: not-allowed;
+}
+
+.btn--secondary {
+  background: #f1f5f9;
+  color: #475569;
+}
+
+.btn--secondary:hover {
+  background: #e2e8f0;
+}
+
+.btn--outline {
+  background: transparent;
+  color: #6366f1;
+  border: 1px solid #6366f1;
+  padding: 6px 14px;
+  font-size: 13px;
+}
+
+.btn--outline:hover {
+  background: #eef2ff;
+}
+
+.btn-icon--delete {
+  width: 28px;
+  height: 28px;
+  border: none;
+  border-radius: 6px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  cursor: pointer;
+  transition: all 0.15s;
+  background: #fef2f2;
+  color: #ef4444;
+  font-size: 12px;
+}
+
+.btn-icon--delete:hover {
+  background: #fee2e2;
+}
+
+/* ── Form actions ── */
+.form-actions {
+  display: flex;
+  justify-content: flex-end;
+  gap: 12px;
+  margin-top: 24px;
+  padding-top: 20px;
+  border-top: 1px solid #e2e8f0;
+}
