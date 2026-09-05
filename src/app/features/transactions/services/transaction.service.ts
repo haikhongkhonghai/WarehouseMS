@@ -121,18 +121,20 @@ export class TransactionService {
         });
 
         for (const detail of details) {
+            const product = this.productService.getById(detail.idSanPham)!;
+            
             this.ls.insert<TransactionDetail>(this.TD_DATA_KEY, this.TD_SEQ_KEY, {
                 idPhieu: transaction.id,
                 idSanPham: detail.idSanPham,
                 soLuong: detail.soLuong,
                 donGia: detail.donGia,
+                maSanPham: product.maSanPham,
+                tenSanPham: product.tenSanPham,
+                donViTinh: product.donViTinh
             });
 
-            const product = this.productService.getById(detail.idSanPham);
-            if (product) {
-                const stockDelta = isImport ? detail.soLuong : -detail.soLuong;
-                this.productService.updateStock(product.id, product.soLuongTon + stockDelta);
-            }
+            const stockDelta = isImport ? detail.soLuong : -detail.soLuong;
+            this.productService.updateStock(product.id, product.soLuongTon + stockDelta);
         }
 
         return transaction;

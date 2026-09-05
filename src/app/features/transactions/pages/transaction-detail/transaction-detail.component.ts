@@ -2,7 +2,7 @@ import { Component, inject, OnInit, signal, computed } from '@angular/core';
 import { ActivatedRoute, RouterLink } from '@angular/router';
 import { CurrencyPipe } from '@angular/common';
 import { TransactionService } from '../../services/transaction.service';
-import { ProductService } from '../../../products/services/product.service';
+
 import { Transaction, TransactionDetail, TransactionSummary, LoaiPhieu } from '../../models/transaction.model';
 import { PageHeaderComponent } from '../../../../shared/components/page-header/page-header.component';
 
@@ -16,7 +16,7 @@ import { PageHeaderComponent } from '../../../../shared/components/page-header/p
 export class TransactionDetailComponent implements OnInit {
   private readonly route = inject(ActivatedRoute);
   private readonly transactionService = inject(TransactionService);
-  private readonly productService = inject(ProductService);
+
 
   protected readonly LoaiPhieu = LoaiPhieu;
   protected readonly transaction = signal<Transaction | null>(null);
@@ -34,13 +34,7 @@ export class TransactionDetailComponent implements OnInit {
     }
   }
 
-  protected getProductName(productId: number): string {
-    return this.productService.getById(productId)?.tenSanPham ?? 'N/A';
-  }
 
-  protected getProductCode(productId: number): string {
-    return this.productService.getById(productId)?.maSanPham ?? 'N/A';
-  }
 
   protected getItemTotal(detail: TransactionDetail): number {
     return this.transactionService.calculateItemTotal(detail.soLuong, detail.donGia);

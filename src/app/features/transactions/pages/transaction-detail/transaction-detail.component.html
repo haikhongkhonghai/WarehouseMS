@@ -54,8 +54,8 @@
                 @for (detail of details(); track detail.id; let i = $index) {
                 <tr>
                     <td>{{ i + 1 }}</td>
-                    <td><span class="code-badge">{{ getProductCode(detail.idSanPham) }}</span></td>
-                    <td>{{ getProductName(detail.idSanPham) }}</td>
+                    <td><span class="code-badge">{{ detail.maSanPham || 'N/A' }}</span></td>
+                    <td>{{ detail.tenSanPham || 'N/A' }}</td>
                     <td>{{ detail.soLuong }}</td>
                     <td>{{ detail.donGia | currency:'VND':'symbol':'1.0-0' }}</td>
                     <td class="td--bold">{{ getItemTotal(detail) | currency:'VND':'symbol':'1.0-0' }}</td>

@@ -64,6 +64,7 @@ export class SeedDataService {
 
     const txData: Transaction[] = [];
     const tdData: TransactionDetail[] = [];
+    const products = this.ls.getAll<any>(STORAGE_KEYS.PRODUCTS_DATA);
     let txId = 1;
     let tdId = 1;
 
@@ -80,12 +81,17 @@ export class SeedDataService {
 
         const numItems = (i % 3) + 1; 
         for (let j = 0; j < numItems; j++) {
+            const productId = ((i + j) % 40) + 1;
+            const product = products.find(p => p.id === productId);
             tdData.push({
                 id: tdId++,
                 idPhieu: txId,
-                idSanPham: ((i + j) % 40) + 1,
+                idSanPham: productId,
                 soLuong: 10 + j * 5,
-                donGia: 1200000
+                donGia: 1200000,
+                maSanPham: product!.maSanPham,
+                tenSanPham: product!.tenSanPham,
+                donViTinh: product!.donViTinh
             });
         }
         txId++;
@@ -104,12 +110,17 @@ export class SeedDataService {
 
         const numItems = (i % 2) + 1;
         for (let j = 0; j < numItems; j++) {
+            const productId = ((i + j + 10) % 40) + 1;
+            const product = products.find(p => p.id === productId);
             tdData.push({
                 id: tdId++,
                 idPhieu: txId,
-                idSanPham: ((i + j + 10) % 40) + 1,
+                idSanPham: productId,
                 soLuong: 2 + j,
-                donGia: 1800000
+                donGia: 1800000,
+                maSanPham: product!.maSanPham,
+                tenSanPham: product!.tenSanPham,
+                donViTinh: product!.donViTinh
             });
         }
         txId++;

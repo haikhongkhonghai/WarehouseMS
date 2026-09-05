@@ -17,6 +17,9 @@ export interface TransactionDetail {
     idSanPham: number;
     soLuong: number;
     donGia: number;
+    maSanPham: string;
+    tenSanPham: string;
+    donViTinh: string;
 }
 
 export interface TransactionSummary {
