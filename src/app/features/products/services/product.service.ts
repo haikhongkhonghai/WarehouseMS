@@ -121,9 +121,6 @@ export class ProductService {
     if (product.giaBan < 0) {
       throw new Error('Giá bán phải >= 0.');
     }
-    if (product.tonToiThieu < 0) {
-      throw new Error('Tồn tối thiểu phải >= 0.');
-    }
     if (product.soLuongTon < 0) {
       throw new Error('Số lượng tồn phải >= 0.');
     }

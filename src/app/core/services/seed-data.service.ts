@@ -89,7 +89,6 @@ export class SeedDataService {
         giaNhap: 28000000,
         giaBan: 32000000,
         soLuongTon: 15,
-        tonToiThieu: 5,
         trangThai: 'Đang kinh doanh',
       },
       {
@@ -101,7 +100,6 @@ export class SeedDataService {
         giaNhap: 20000000,
         giaBan: 24000000,
         soLuongTon: 8,
-        tonToiThieu: 3,
         trangThai: 'Đang kinh doanh',
       },
       {
@@ -113,7 +111,6 @@ export class SeedDataService {
         giaNhap: 35000000,
         giaBan: 39900000,
         soLuongTon: 10,
-        tonToiThieu: 2,
         trangThai: 'Đang kinh doanh',
       },
       {
@@ -125,7 +122,6 @@ export class SeedDataService {
         giaNhap: 1200000,
         giaBan: 1500000,
         soLuongTon: 50,
-        tonToiThieu: 10,
         trangThai: 'Đang kinh doanh',
       },
       {
@@ -137,7 +133,6 @@ export class SeedDataService {
         giaNhap: 4500000,
         giaBan: 5500000,
         soLuongTon: 25,
-        tonToiThieu: 5,
         trangThai: 'Đang kinh doanh',
       },
       {
@@ -149,7 +144,6 @@ export class SeedDataService {
         giaNhap: 150000,
         giaBan: 250000,
         soLuongTon: 100,
-        tonToiThieu: 20,
         trangThai: 'Đang kinh doanh',
       },
       {
@@ -161,7 +155,6 @@ export class SeedDataService {
         giaNhap: 3800000,
         giaBan: 4300000,
         soLuongTon: 5,
-        tonToiThieu: 2,
         trangThai: 'Đang kinh doanh',
       },
       {
@@ -173,7 +166,6 @@ export class SeedDataService {
         giaNhap: 14000000,
         giaBan: 16500000,
         soLuongTon: 4,
-        tonToiThieu: 1,
         trangThai: 'Đang kinh doanh',
       },
       {
@@ -185,7 +177,6 @@ export class SeedDataService {
         giaNhap: 7500000,
         giaBan: 8900000,
         soLuongTon: 6,
-        tonToiThieu: 2,
         trangThai: 'Đang kinh doanh',
       },
       {
@@ -197,7 +188,6 @@ export class SeedDataService {
         giaNhap: 1800000,
         giaBan: 2200000,
         soLuongTon: 30,
-        tonToiThieu: 5,
         trangThai: 'Đang kinh doanh',
       },
     ];

@@ -67,19 +67,12 @@
                 @if (isFieldInvalid('soLuongTon')) { <div class="form-error">Số lượng tồn phải >= 0.</div> }
             </div>
             <div class="form-group">
-                <label class="form-label" for="tonToiThieu">Tồn tối thiểu</label>
-                <input id="tonToiThieu" type="number" class="form-control" formControlName="tonToiThieu" placeholder="0"
-                    [class.form-control--error]="isFieldInvalid('tonToiThieu')" />
-                @if (isFieldInvalid('tonToiThieu')) { <div class="form-error">Tồn tối thiểu phải >= 0.</div> }
+                <label class="form-label" for="trangThai">Trạng thái</label>
+                <select id="trangThai" class="form-control" formControlName="trangThai">
+                    <option [ngValue]="TrangThai.DANG_KINH_DOANH">Đang kinh doanh</option>
+                    <option [ngValue]="TrangThai.NGUNG_KINH_DOANH">Ngừng kinh doanh</option>
+                </select>
             </div>
-        </div>
-
-        <div class="form-group">
-            <label class="form-label" for="trangThai">Trạng thái</label>
-            <select id="trangThai" class="form-control" formControlName="trangThai">
-                <option [ngValue]="TrangThai.DANG_KINH_DOANH">Đang kinh doanh</option>
-                <option [ngValue]="TrangThai.NGUNG_KINH_DOANH">Ngừng kinh doanh</option>
-            </select>
         </div>
 
         <div class="form-actions">

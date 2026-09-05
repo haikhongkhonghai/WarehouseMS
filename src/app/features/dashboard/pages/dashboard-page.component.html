@@ -1,0 +1,108 @@
+<app-page-header title="Dashboard" subtitle="Tổng quan hệ thống quản lý kho" />
+
+<!-- Stats Cards -->
+<div class="stats-grid">
+    <div class="stat-card stat-card--indigo">
+        <div class="stat-card__icon">
+            <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                <path d="M22 19a2 2 0 01-2 2H4a2 2 0 01-2-2V5a2 2 0 012-2h5l2 3h9a2 2 0 012 2z" />
+            </svg>
+        </div>
+        <div class="stat-card__info">
+            <span class="stat-card__value">{{ stats().tongDanhMuc }}</span>
+            <span class="stat-card__label">Danh mục</span>
+        </div>
+    </div>
+
+    <div class="stat-card stat-card--emerald">
+        <div class="stat-card__icon">
+            <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                <path d="M20 7l-8-4-8 4m16 0l-8 4m8-4v10l-8 4m0-10L4 7m8 4v10M4 7v10l8 4" />
+            </svg>
+        </div>
+        <div class="stat-card__info">
+            <span class="stat-card__value">{{ stats().tongSanPham }}</span>
+            <span class="stat-card__label">Sản phẩm</span>
+        </div>
+    </div>
+
+    <div class="stat-card stat-card--blue">
+        <div class="stat-card__icon">
+            <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                <path d="M12 5v14M5 12l7 7 7-7" />
+            </svg>
+        </div>
+        <div class="stat-card__info">
+            <span class="stat-card__value">{{ stats().tongPhieuNhap }}</span>
+            <span class="stat-card__label">Phiếu nhập</span>
+        </div>
+    </div>
+
+    <div class="stat-card stat-card--amber">
+        <div class="stat-card__icon">
+            <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                <path d="M12 19V5M5 12l7-7 7 7" />
+            </svg>
+        </div>
+        <div class="stat-card__info">
+            <span class="stat-card__value">{{ stats().tongPhieuXuat }}</span>
+            <span class="stat-card__label">Phiếu xuất</span>
+        </div>
+    </div>
+</div>
+
+<!-- Total Inventory Value -->
+<div class="inventory-value-card">
+    <div class="inventory-value-card__header">
+        <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+            <line x1="12" y1="1" x2="12" y2="23" />
+            <path d="M17 5H9.5a3.5 3.5 0 000 7h5a3.5 3.5 0 010 7H6" />
+        </svg>
+        <span>Tổng giá trị tồn kho</span>
+    </div>
+    <div class="inventory-value-card__value">
+        {{ stats().tongGiaTriTonKho | currency:'VND':'symbol':'1.0-0' }}
+    </div>
+</div>
+
+<!-- Low Stock Products -->
+<div class="low-stock-section">
+    <div class="low-stock-section__header">
+        <h2>Top 5 sản phẩm tồn kho thấp nhất</h2>
+        <a routerLink="/products" class="link-btn">Xem tất cả →</a>
+    </div>
+
+    @if (lowStockProducts().length > 0) {
+    <div class="table-container">
+        <table class="data-table">
+            <thead>
+                <tr>
+                    <th>Mã SP</th>
+                    <th>Tên sản phẩm</th>
+                    <th>Đơn vị</th>
+                    <th>Tồn kho</th>
+                    <th>Trạng thái</th>
+                </tr>
+            </thead>
+            <tbody>
+                @for (product of lowStockProducts(); track product.id) {
+                <tr [class.row--warning]="product.soLuongTon === 0">
+                    <td><span class="code-badge">{{ product.maSanPham }}</span></td>
+                    <td>{{ product.tenSanPham }}</td>
+                    <td>{{ product.donViTinh }}</td>
+                    <td>
+                        <span class="stock-badge"
+                            [class.stock-badge--danger]="product.soLuongTon === 0">
+                            {{ product.soLuongTon }}
+                        </span>
+                    </td>
+                    <td><span class="status-badge status-badge--active">{{ product.trangThai }}</span></td>
+                </tr>
+                }
+            </tbody>
+        </table>
+    </div>
+    } @else {
+    <div class="empty-placeholder">Không có dữ liệu sản phẩm.</div>
+    }
+</div>

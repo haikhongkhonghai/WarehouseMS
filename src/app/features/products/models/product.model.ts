@@ -12,6 +12,5 @@ export interface Product {
     giaNhap: number;
     giaBan: number;
     soLuongTon: number;
-    tonToiThieu: number;
     trangThai: TrangThaiSanPham;
 }

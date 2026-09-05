@@ -52,7 +52,6 @@ export class ProductFormComponent implements OnInit {
             giaNhap: [this.editingProduct?.giaNhap ?? 0, [Validators.required, CustomValidators.nonNegative()]],
             giaBan: [this.editingProduct?.giaBan ?? 0, [Validators.required, CustomValidators.nonNegative()]],
             soLuongTon: [this.editingProduct?.soLuongTon ?? 0, [CustomValidators.nonNegative()]],
-            tonToiThieu: [this.editingProduct?.tonToiThieu ?? 0, [CustomValidators.nonNegative()]],
             trangThai: [this.editingProduct?.trangThai ?? TrangThaiSanPham.DANG_KINH_DOANH],
         });
     }

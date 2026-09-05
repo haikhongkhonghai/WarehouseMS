@@ -93,7 +93,7 @@
         </thead>
         <tbody>
           @for (p of filteredProducts(); track p.id) {
-            <tr [class.row--warning]="p.soLuongTon <= p.tonToiThieu">
+            <tr [class.row--warning]="p.soLuongTon === 0">
               <td>
                 <span class="code-badge">{{ p.maSanPham }}</span>
               </td>
@@ -105,7 +105,7 @@
               <td>
                 <span
                   class="stock-badge"
-                  [class.stock-badge--danger]="p.soLuongTon <= p.tonToiThieu"
+                  [class.stock-badge--danger]="p.soLuongTon === 0"
                   >{{ p.soLuongTon }}</span
                 >
               </td>
